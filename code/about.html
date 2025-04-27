@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - SerenitySpas</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFFAF3',
+                        secondary: '#FFFFFF',
+                        accent: '#D4A373',
+                        dark: '#5C5C5C'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- AOS.js for animations -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <style>
+        body {
+            background-color: #FFFAF3;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #D4A373;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .active::after {
+            width: 100%;
+        }
+
+        .page-banner {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50" x-data="{ mobileMenuOpen: false }">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-serif font-bold text-accent">Serenity<span
+                    class="text-dark">Spa</span></a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link active font-medium text-dark hover:text-accent transition">Home</a>
+                <a href="about.html" class="nav-link font-medium text-dark hover:text-accent transition">About Us</a>
+                <a href="menu.html" class="nav-link font-medium text-dark hover:text-accent transition">Services</a>
+                <a href="gallery.html" class="nav-link font-medium text-dark hover:text-accent transition">Gallery</a>
+                <a href="faq.html" class="nav-link font-medium text-dark hover:text-accent transition">FAQ</a>
+                <a href="contact.html" class="nav-link font-medium text-dark hover:text-accent transition">Contact</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-dark focus:outline-none">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-white">
+            <nav class="flex flex-col space-y-4 px-4 py-6">
+                <a href="index.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Home</a>
+                <a href="about.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">About
+                    Us</a>
+                <a href="menu.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Services</a>
+                <a href="gallery.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Gallery</a>
+                <a href="faq.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">FAQ</a>
+                <a href="contact.html" class="font-medium text-dark hover:text-accent transition pb-2">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner flex items-center justify-center text-center text-white">
+        <div class="container mx-auto px-4" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="text-4xl md:text-5xl font-serif font-bold mb-4">About Us</h1>
+            <p class="text-xl max-w-3xl mx-auto">Learn more about our journey, our team, and our commitment to wellness
+            </p>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <img src="https://plus.unsplash.com/premium_photo-1679430887921-31e1047e5b55?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Our Story" class="rounded-lg shadow-lg w-full max-h-[400px] object-contain" loading="lazy">
+
+
+                </div>
+
+                <div data-aos="fade-left">
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-dark">Our Story</h2>
+                    <p class="text-gray-600 mb-6">Founded in 2010, SerenitySpas began with a simple vision: to create a
+                        sanctuary where people could escape the stresses of everyday life and find true relaxation. Our
+                        founder, Emma Thompson, had spent years working in the wellness industry and saw a need for a
+                        spa that combined traditional techniques with modern innovations.</p>
+                    <p class="text-gray-600 mb-6">Starting with just three treatment rooms and a small team of dedicated
+                        therapists, we quickly gained a reputation for exceptional service and results-driven
+                        treatments. As word spread, we expanded our facilities and service offerings to meet the growing
+                        demand.</p>
+                    <p class="text-gray-600">Today, SerenitySpas has grown into a premier wellness destination with
+                        multiple locations, but our core mission remains unchanged: to provide each client with a
+                        personalized experience that promotes balance, rejuvenation, and overall well-being.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Values Section -->
+    <section class="py-20 bg-primary">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4 text-dark">Our Values</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">The principles that guide everything we do at
+                    SerenitySpas</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Value 1 -->
+                <div class="bg-white p-8 rounded-lg shadow-md transition duration-300 hover:shadow-xl"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-accent text-4xl mb-4">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold mb-3 text-dark">Personalized Care</h3>
+                    <p class="text-gray-600">We believe that every client is unique, with individual needs and
+                        preferences. Our treatments are customized to address your specific concerns and goals, ensuring
+                        optimal results and satisfaction.</p>
+                </div>
+
+                <!-- Value 2 -->
+                <div class="bg-white p-8 rounded-lg shadow-md transition duration-300 hover:shadow-xl"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-accent text-4xl mb-4">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold mb-3 text-dark">Natural & Sustainable</h3>
+                    <p class="text-gray-600">We are committed to using high-quality, natural products that are kind to
+                        your skin and to the environment. Our eco-friendly practices extend to all aspects of our
+                        operations.</p>
+                </div>
+
+                <!-- Value 3 -->
+                <div class="bg-white p-8 rounded-lg shadow-md transition duration-300 hover:shadow-xl"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-accent text-4xl mb-4">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold mb-3 text-dark">Excellence</h3>
+                    <p class="text-gray-600">We strive for excellence in everything we do, from the quality of our
+                        treatments to the cleanliness of our facilities. Our team undergoes continuous training to stay
+                        at the forefront of industry developments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Team Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4 text-dark">Meet Our Team</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Our skilled professionals are dedicated to providing
+                    you with the best spa experience</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Team Member 1 -->
+                <div class="bg-primary rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1061&q=80"
+                        alt="Emma Thompson" class="w-full h-64 object-cover object-center" loading="lazy">
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-serif font-bold mb-1 text-dark">Emma Thompson</h3>
+                        <p class="text-accent font-medium mb-3">Founder & Director</p>
+                        <p class="text-gray-600 mb-4">With over 15 years of experience in the wellness industry, Emma
+                            leads our team with passion and expertise.</p>
+                        <div class="flex justify-center space-x-3">
+                            <a href="#" class="text-dark hover:text-accent transition"><i
+                                    class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-dark hover:text-accent transition"><i
+                                    class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="bg-primary rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1634&q=80"
+                        alt="David Chen" class="w-full h-64 object-cover object-center" loading="lazy">
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-serif font-bold mb-1 text-dark">David Chen</h3>
+                        <p class="text-accent font-medium mb-3">Lead Massage Therapist</p>
+                        <p class="text-gray-600 mb-4">David specializes in deep tissue and sports massage, helping
+                            clients recover from injuries and chronic pain.</p>
+                        <div class="flex justify-center space-x-3">
+                            <a href="#" class="text-dark hover:text-accent transition"><i
+                                    class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-dark hover:text-accent transition"><i
+                                    class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="bg-primary rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1588&q=80"
+                        alt="Sophia Martinez" class="w-full h-64 object-cover object-center" loading="lazy">
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-serif font-bold mb-1 text-dark">Sophia Martinez</h3>
+                        <p class="text-accent font-medium mb-3">Senior Esthetician</p>
+                        <p class="text-gray-600 mb-4">Sophia is our skincare expert, with advanced training in facial
+                            treatments and anti-aging techniques.</p>
+                        <div class="flex justify-center space-x-3">
+                            <a href="#" class="text-dark hover:text-accent transition"><i
+                                    class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-dark hover:text-accent transition"><i
+                                    class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 4 -->
+                <div class="bg-primary rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl"
+                    data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
+                        alt="James Wilson" class="w-full h-64 object-cover object-center" loading="lazy">
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-serif font-bold mb-1 text-dark">James Wilson</h3>
+                        <p class="text-accent font-medium mb-3">Wellness Coordinator</p>
+                        <p class="text-gray-600 mb-4">James helps create personalized treatment plans for our clients,
+                            ensuring a holistic approach to wellness.</p>
+                        <div class="flex justify-center space-x-3">
+                            <a href="#" class="text-dark hover:text-accent transition"><i
+                                    class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-dark hover:text-accent transition"><i
+                                    class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="py-20 bg-primary">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4 text-dark">Our Achievements</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Milestones that mark our journey of excellence</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <!-- Achievement 1 -->
+                <div class="bg-white p-8 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-accent text-4xl font-bold mb-2">10+</div>
+                    <p class="text-dark font-medium">Years of Experience</p>
+                </div>
+
+                <!-- Achievement 2 -->
+                <div class="bg-white p-8 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-accent text-4xl font-bold mb-2">15,000+</div>
+                    <p class="text-dark font-medium">Happy Clients</p>
+                </div>
+
+                <!-- Achievement 3 -->
+                <div class="bg-white p-8 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-accent text-4xl font-bold mb-2">20+</div>
+                    <p class="text-dark font-medium">Expert Therapists</p>
+                </div>
+
+                <!-- Achievement 4 -->
+                <div class="bg-white p-8 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="400">
+                    <div class="text-accent text-4xl font-bold mb-2">5</div>
+                    <p class="text-dark font-medium">Industry Awards</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-20 bg-accent text-white">
+        <div class="container mx-auto px-4 text-center" data-aos="zoom-in">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6">Experience Our Services</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Book your appointment today and discover why our clients keep
+                coming back.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="menu.html"
+                    class="bg-white text-accent hover:bg-opacity-90 font-medium py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">View
+                    Services</a>
+                <a href="contact.html"
+                    class="bg-transparent hover:bg-white hover:text-accent text-white font-medium py-3 px-8 rounded-full border-2 border-white transition duration-300 transform hover:scale-105">Contact
+                    Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Column 1: Logo & About -->
+                <div>
+                    <a href="index.html"
+                        class="text-2xl font-serif font-bold text-white mb-4 inline-block">Serenity<span
+                            class="text-accent">Spa</span></a>
+                    <p class="text-gray-300 mb-4">Your destination for relaxation and rejuvenation. We offer premium spa
+                        services to help you look and feel your best.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-accent transition"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i
+                                class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-accent transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-accent transition">About Us</a></li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Services</a></li>
+                        <li><a href="faq.html" class="text-gray-300 hover:text-accent transition">FAQ</a></li>
+                        <li><a href="contact.html" class="text-gray-300 hover:text-accent transition">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Services -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Our Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Massage Therapy</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Facial Treatments</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Body Treatments</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Aromatherapy</a></li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Spa Packages</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact Info -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
+                            <span class="text-gray-300">123 Relaxation Blvd, Serenity City, SC 12345</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-accent"></i>
+                            <span class="text-gray-300">(555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-accent"></i>
+                            <span class="text-gray-300">info@serenityspa.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock mr-3 text-accent"></i>
+                            <span class="text-gray-300">Mon-Sat: 9:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 6:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="border-gray-700 my-8">
+
+            <div class="text-center text-gray-400">
+                <p>&copy; 2023 SerenitySpas. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Scripts -->
+    <script>
+        // Initialize AOS animations
+        AOS.init();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - SerenitySpas</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFFAF3',
+                        secondary: '#FFFFFF',
+                        accent: '#D4A373',
+                        dark: '#5C5C5C'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- AOS.js for animations -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <style>
+        body {
+            background-color: #FFFAF3;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #D4A373;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .active::after {
+            width: 100%;
+        }
+
+        .page-banner {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50" x-data="{ mobileMenuOpen: false }">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-serif font-bold text-accent">Serenity<span
+                    class="text-dark">Spa</span></a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link active font-medium text-dark hover:text-accent transition">Home</a>
+                <a href="about.html" class="nav-link font-medium text-dark hover:text-accent transition">About Us</a>
+                <a href="menu.html" class="nav-link font-medium text-dark hover:text-accent transition">Services</a>
+                <a href="gallery.html" class="nav-link font-medium text-dark hover:text-accent transition">Gallery</a>
+                <a href="faq.html" class="nav-link font-medium text-dark hover:text-accent transition">FAQ</a>
+                <a href="contact.html" class="nav-link font-medium text-dark hover:text-accent transition">Contact</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-dark focus:outline-none">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-white">
+            <nav class="flex flex-col space-y-4 px-4 py-6">
+                <a href="index.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Home</a>
+                <a href="about.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">About
+                    Us</a>
+                <a href="menu.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Services</a>
+                <a href="gallery.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Gallery</a>
+                <a href="faq.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">FAQ</a>
+                <a href="contact.html" class="font-medium text-dark hover:text-accent transition pb-2">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner flex items-center justify-center text-center text-white">
+        <div class="container mx-auto px-4" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="text-4xl md:text-5xl font-serif font-bold mb-4">Frequently Asked Questions</h1>
+            <p class="text-xl max-w-3xl mx-auto">Find answers to common questions about our services and policies</p>
+        </div>
+    </section>
+
+    <!-- FAQ Categories -->
+
+    <div x-data="{
+        activeSection: 'general',
+        scrollToSection(sectionId) {
+            this.activeSection = sectionId;
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+    }">
+        <section class="py-10 bg-white sticky top-16 z-40 shadow-sm">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button @click="scrollToSection('general')"
+                        :class="activeSection === 'general' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                        class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                        General
+                    </button>
+                    <button @click="scrollToSection('services')"
+                        :class="activeSection === 'services' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                        class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                        Services
+                    </button>
+                    <button @click="scrollToSection('booking')"
+                        :class="activeSection === 'booking' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                        class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                        Booking
+                    </button>
+                    <button @click="scrollToSection('policies')"
+                        :class="activeSection === 'policies' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                        class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                        Policies
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Content -->
+        <section class="py-16 bg-primary">
+            <div class="container mx-auto px-4">
+                <!-- General FAQs -->
+                <div id="general" class="max-w-3xl mx-auto pt-10 scroll-mt-40">
+
+                    <div class="mb-12" data-aos="fade-up">
+                        <h2 class="text-3xl font-serif font-bold mb-8 text-dark text-center">General Questions</h2>
+
+                        <!-- FAQ Items go here -->
+                        <!-- FAQ Item 1 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">What are your operating hours?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">We are open Monday through Saturday from 9:00 AM to 8:00 PM,
+                                    and on
+                                    Sundays from 10:00 AM to 6:00 PM. We recommend booking appointments in advance,
+                                    especially for weekends and holidays when we tend to be busier.</p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 2 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">Where are you located?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">Our main spa is located at 123 Relaxation Blvd, Serenity City,
+                                    SC
+                                    12345. We have ample parking available for our guests. You can find detailed
+                                    directions
+                                    on our Contact page or give us a call at (555) 123-4567 for assistance.</p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 3 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">Do you offer gift certificates?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">Yes, we offer gift certificates for all of our services and
+                                    packages. They can be purchased in-person at our spa, over the phone, or through our
+                                    website. Gift certificates are valid for one year from the date of purchase and make
+                                    the
+                                    perfect gift for any occasion.</p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 4 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">What should I bring to my appointment?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">You don't need to bring anything special to your appointment.
+                                    We
+                                    provide robes, slippers, and all necessary amenities. We recommend arriving 15
+                                    minutes
+                                    before your scheduled appointment time to complete any paperwork and begin your
+                                    relaxation journey. For your comfort, you may want to avoid wearing heavy jewelry or
+                                    makeup.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Services FAQs -->
+                <div id="services" class="max-w-3xl mx-auto pt-20 scroll-mt-40">
+
+                    <div class="mb-12" data-aos="fade-up">
+                        <h2 class="text-3xl font-serif font-bold mb-8 text-dark text-center">Services Questions</h2>
+                        <!-- FAQ Item 1 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">What types of massage do you offer?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">We offer a variety of massage therapies including Swedish, Deep
+                                    Tissue, Hot Stone, Aromatherapy, Sports Massage, Prenatal Massage, and Couples
+                                    Massage.
+                                    Each type targets different needs, from relaxation to pain relief. Our therapists
+                                    can
+                                    help you choose the best option based on your specific concerns.</p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 2 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">How long do treatments typically last?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">Our treatments range from 30 minutes to 2 hours, depending on
+                                    the
+                                    service. Massages are typically available in 60, 75, or 90-minute sessions. Facials
+                                    usually last 60 minutes, while body treatments can range from 45 to 90 minutes. Spa
+                                    packages may last several hours and include multiple services.</p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 3 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">What products do you use in your treatments?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">We use high-quality, natural products in all of our treatments.
+                                    Our
+                                    skincare line is free from harsh chemicals, parabens, and artificial fragrances. We
+                                    prioritize organic and sustainable ingredients whenever possible. Many of the
+                                    products
+                                    used in our treatments are also available for purchase, allowing you to continue
+                                    your
+                                    skincare routine at home.</p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 4 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">Do you offer services for men?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">Absolutely! All of our services are suitable for both men and
+                                    women. We offer specialized men's facials that address specific skincare concerns
+                                    like
+                                    razor burn and ingrown hairs. Our massage therapies are equally beneficial for
+                                    everyone,
+                                    and we have male therapists available upon request.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking FAQs -->
+                <div id="booking" class="max-w-3xl mx-auto pt-20 scroll-mt-40">
+                    <div class="mb-12" data-aos="fade-up">
+                        <h2 class="text-3xl font-serif font-bold mb-8 text-dark text-center">Booking Questions</h2>
+                        <!-- FAQ Item 1 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">How do I book an appointment?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">You can book an appointment through our website, by calling us
+                                    at
+                                    (555) 123-4567, or in person at our spa. Online booking is available 24/7 and allows
+                                    you
+                                    to see real-time availability. We recommend booking at least a week in advance for
+                                    weekends and popular times, though we do accommodate same-day appointments when
+                                    possible.</p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 2 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">How far in advance should I book?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">We recommend booking 1-2 weeks in advance for regular
+                                    appointments,
+                                    and 3-4 weeks in advance for weekend appointments or special occasions. During
+                                    holiday
+                                    seasons, it's best to book even earlier. For spa packages or group bookings, we
+                                    suggest
+                                    booking at least one month ahead to ensure availability.</p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 3 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">Can I request a specific therapist?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">Yes, you can request a specific therapist when booking your
+                                    appointment. If you've had a positive experience with a particular staff member,
+                                    we're
+                                    happy to schedule you with them again. If your preferred therapist is not available
+                                    at
+                                    your desired time, we can suggest another qualified professional or offer
+                                    alternative
+                                    appointment times.</p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 4 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">Do you accommodate group bookings?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">Yes, we welcome group bookings for special occasions such as
+                                    bridal
+                                    parties, corporate events, or birthday celebrations. We offer special packages for
+                                    groups and can customize services to suit your needs. For groups of 4 or more,
+                                    please
+                                    contact our spa coordinator directly at (555) 123-4567 ext. 2 to arrange your visit.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Policies FAQs -->
+                <div id="policies" class="max-w-3xl mx-auto pt-20 scroll-mt-40">
+                    <div class="mb-12" data-aos="fade-up">
+                        <h2 class="text-3xl font-serif font-bold mb-8 text-dark text-center">Policies Questions</h2>
+                        <!-- FAQ Item 1 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">What is your cancellation policy?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">We require 24 hours' notice for cancellations or rescheduling.
+                                    Cancellations made with less than 24 hours' notice may be subject to a 50%
+                                    cancellation
+                                    fee. No-shows will be charged the full service amount. We understand that
+                                    emergencies
+                                    happen, and we handle these situations on a case-by-case basis.</p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 2 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">What forms of payment do you accept?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">We accept all major credit cards (Visa, Mastercard, American
+                                    Express, Discover), cash, and gift certificates. We also accept digital payment
+                                    methods
+                                    like Apple Pay and Google Pay. Payment is required at the time of service. For group
+                                    bookings or spa packages, a deposit may be required at the time of booking.</p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 3 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">Do you have a gratuity policy?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">Gratuities are not included in the service price and are left
+                                    to
+                                    your discretion based on your satisfaction with the service. The industry standard
+                                    is
+                                    15-20% of the service price. For your convenience, you can add a gratuity when
+                                    paying by
+                                    credit card, or you can provide cash directly to your service provider.</p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 4 -->
+                        <div x-data="{ open: false }" class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                            <button @click="open = !open"
+                                class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                                <span class="text-dark">What is your refund policy?</span>
+                                <i class="fas"
+                                    :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                            </button>
+                            <div x-show="open" x-transition class="px-6 pb-4">
+                                <p class="text-gray-600">If you're not completely satisfied with your service, please
+                                    let us
+                                    know immediately so we can address your concerns. We may offer to redo the service
+                                    or
+                                    provide a credit toward a future visit. Refunds are handled on a case-by-case basis
+                                    and
+                                    must be requested within 7 days of service. Gift certificates are non-refundable but
+                                    are
+                                    transferable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Still Have Questions Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4 text-center" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-dark">Still Have Questions?</h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">We're here to help! Contact our friendly team
+                for
+                personalized assistance.</p>
+            <a href="contact.html"
+                class="inline-block bg-accent hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">Contact
+                Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Column 1: Logo & About -->
+                <div>
+                    <a href="index.html"
+                        class="text-2xl font-serif font-bold text-white mb-4 inline-block">Serenity<span
+                            class="text-accent">Spa</span></a>
+                    <p class="text-gray-300 mb-4">Your destination for relaxation and rejuvenation. We offer premium
+                        spa
+                        services to help you look and feel your best.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-accent transition"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i
+                                class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-accent transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-accent transition">About Us</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Services</a></li>
+                        <li><a href="faq.html" class="text-gray-300 hover:text-accent transition">FAQ</a></li>
+                        <li><a href="contact.html" class="text-gray-300 hover:text-accent transition">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Services -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Our Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Massage
+                                Therapy</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Facial
+                                Treatments</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Body
+                                Treatments</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Aromatherapy</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Spa Packages</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact Info -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
+                            <span class="text-gray-300">123 Relaxation Blvd, Serenity City, SC 12345</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-accent"></i>
+                            <span class="text-gray-300">(555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-accent"></i>
+                            <span class="text-gray-300">info@serenityspa.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock mr-3 text-accent"></i>
+                            <span class="text-gray-300">Mon-Sat: 9:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 6:00
+                                PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <hr class="border-gray-700 my-8">
+
+            <div class="text-center text-gray-400">
+                <p>&copy; 2023 SerenitySpas. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Initialize Scripts -->
+    <script>
+        // Initialize AOS animations
+        AOS.init();
+
+    </script>
+</body>
+
+</html>

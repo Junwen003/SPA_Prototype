@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - SerenitySpas</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFFAF3',
+                        secondary: '#FFFFFF',
+                        accent: '#D4A373',
+                        dark: '#5C5C5C'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- AOS.js for animations -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <style>
+        body {
+            background-color: #FFFAF3;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #D4A373;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .active::after {
+            width: 100%;
+        }
+
+        .page-banner {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1519823551278-64ac92734fb1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1748&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+        }
+
+        .service-card:hover .service-image {
+            transform: scale(1.05);
+        }
+
+        .service-image {
+            transition: transform 0.5s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50" x-data="{ mobileMenuOpen: false }">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-serif font-bold text-accent">Serenity<span
+                    class="text-dark">Spa</span></a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link active font-medium text-dark hover:text-accent transition">Home</a>
+                <a href="about.html" class="nav-link font-medium text-dark hover:text-accent transition">About Us</a>
+                <a href="menu.html" class="nav-link font-medium text-dark hover:text-accent transition">Services</a>
+                <a href="gallery.html" class="nav-link font-medium text-dark hover:text-accent transition">Gallery</a>
+                <a href="faq.html" class="nav-link font-medium text-dark hover:text-accent transition">FAQ</a>
+                <a href="contact.html" class="nav-link font-medium text-dark hover:text-accent transition">Contact</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-dark focus:outline-none">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-white">
+            <nav class="flex flex-col space-y-4 px-4 py-6">
+                <a href="index.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Home</a>
+                <a href="about.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">About
+                    Us</a>
+                <a href="menu.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Services</a>
+                <a href="gallery.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Gallery</a>
+                <a href="faq.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">FAQ</a>
+                <a href="contact.html" class="font-medium text-dark hover:text-accent transition pb-2">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner flex items-center justify-center text-center text-white">
+        <div class="container mx-auto px-4" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="text-4xl md:text-5xl font-serif font-bold mb-4">Our Services</h1>
+            <p class="text-xl max-w-3xl mx-auto">Discover our range of premium spa treatments designed for your
+                relaxation and wellness</p>
+        </div>
+    </section>
+
+    <!-- Service Categories Navigation -->
+    <section class="py-10 bg-white sticky top-20 z-40 shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center gap-4" x-data="{ activeCategory: 'all' }">
+                <button @click="activeCategory = 'all'"
+                    :class="activeCategory === 'all' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                    All Services
+                </button>
+                <button @click="activeCategory = 'massage'"
+                    :class="activeCategory === 'massage' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                    Massage Therapy
+                </button>
+                <button @click="activeCategory = 'facial'"
+                    :class="activeCategory === 'facial' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                    Facial Treatments
+                </button>
+                <button @click="activeCategory = 'body'"
+                    :class="activeCategory === 'body' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                    Body Treatments
+                </button>
+                <button @click="activeCategory = 'packages'"
+                    :class="activeCategory === 'packages' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                    Spa Packages
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Massage Therapy Section -->
+    <section class="py-16 bg-primary" id="massage" x-data="{ showDetails: null }">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4 text-dark">Massage Therapy</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Our expert therapists use a variety of techniques to
+                    release tension and promote relaxation</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl service-card"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                            alt="Swedish Massage" class="w-full h-64 object-cover service-image" loading="lazy">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-serif font-bold text-dark">Swedish Massage</h3>
+                            <span class="text-accent font-medium">$85 / 60 min</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">A gentle, relaxing massage that uses long strokes, kneading, and
+                            circular movements to ease tension and promote circulation.</p>
+                        <button @click="showDetails === 1 ? showDetails = null : showDetails = 1"
+                            class="text-accent font-medium hover:underline inline-flex items-center">
+                            <span x-text="showDetails === 1 ? 'Show Less' : 'View Details'"></span>
+                            <i class="fas"
+                                :class="showDetails === 1 ? 'fa-chevron-up ml-2' : 'fa-chevron-down ml-2'"></i>
+                        </button>
+
+                        <div x-show="showDetails === 1" x-transition class="mt-4 pt-4 border-t border-gray-100">
+                            <h4 class="font-medium text-dark mb-2">Benefits:</h4>
+                            <ul class="list-disc list-inside text-gray-600 mb-4 space-y-1">
+                                <li>Reduces stress and anxiety</li>
+                                <li>Improves circulation</li>
+                                <li>Relieves muscle tension</li>
+                                <li>Enhances relaxation</li>
+                            </ul>
+                            <a href="contact.html"
+                                class="inline-block bg-accent hover:bg-opacity-90 text-white font-medium py-2 px-6 rounded-full transition duration-300 transform hover:scale-105 text-sm">Book
+                                Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl service-card"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                            alt="Deep Tissue Massage" class="w-full h-64 object-cover service-image" loading="lazy">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-serif font-bold text-dark">Deep Tissue Massage</h3>
+                            <span class="text-accent font-medium">$95 / 60 min</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">A therapeutic massage that focuses on realigning deeper layers of
+                            muscles and connective tissue, ideal for chronic pain and tension.</p>
+                        <button @click="showDetails === 2 ? showDetails = null : showDetails = 2"
+                            class="text-accent font-medium hover:underline inline-flex items-center">
+                            <span x-text="showDetails === 2 ? 'Show Less' : 'View Details'"></span>
+                            <i class="fas"
+                                :class="showDetails === 2 ? 'fa-chevron-up ml-2' : 'fa-chevron-down ml-2'"></i>
+                        </button>
+
+                        <div x-show="showDetails === 2" x-transition class="mt-4 pt-4 border-t border-gray-100">
+                            <h4 class="font-medium text-dark mb-2">Benefits:</h4>
+                            <ul class="list-disc list-inside text-gray-600 mb-4 space-y-1">
+                                <li>Alleviates chronic pain</li>
+                                <li>Breaks down scar tissue</li>
+                                <li>Improves posture</li>
+                                <li>Increases range of motion</li>
+                            </ul>
+                            <a href="contact.html"
+                                class="inline-block bg-accent hover:bg-opacity-90 text-white font-medium py-2 px-6 rounded-full transition duration-300 transform hover:scale-105 text-sm">Book
+                                Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl service-card"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1519824145371-296894a0daa9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                            alt="Hot Stone Massage" class="w-full h-64 object-cover service-image" loading="lazy">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-serif font-bold text-dark">Hot Stone Massage</h3>
+                            <span class="text-accent font-medium">$110 / 75 min</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">A luxurious treatment that uses heated stones to warm and relax
+                            muscles, allowing for deeper pressure without discomfort.</p>
+                        <button @click="showDetails === 3 ? showDetails = null : showDetails = 3"
+                            class="text-accent font-medium hover:underline inline-flex items-center">
+                            <span x-text="showDetails === 3 ? 'Show Less' : 'View Details'"></span>
+                            <i class="fas"
+                                :class="showDetails === 3 ? 'fa-chevron-up ml-2' : 'fa-chevron-down ml-2'"></i>
+                        </button>
+
+                        <div x-show="showDetails === 3" x-transition class="mt-4 pt-4 border-t border-gray-100">
+                            <h4 class="font-medium text-dark mb-2">Benefits:</h4>
+                            <ul class="list-disc list-inside text-gray-600 mb-4 space-y-1">
+                                <li>Deeply relaxes muscles</li>
+                                <li>Improves blood flow</li>
+                                <li>Reduces stress and anxiety</li>
+                                <li>Promotes better sleep</li>
+                            </ul>
+                            <a href="contact.html"
+                                class="inline-block bg-accent hover:bg-opacity-90 text-white font-medium py-2 px-6 rounded-full transition duration-300 transform hover:scale-105 text-sm">Book
+                                Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facial Treatments Section -->
+    <section class="py-16 bg-white" id="facial" x-data="{ showDetails: null }">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4 text-dark">Facial Treatments</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Revitalize your skin with our customized facial
+                    treatments using premium products</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-primary rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl service-card"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                            alt="Classic Facial" class="w-full h-64 object-cover service-image" loading="lazy">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-serif font-bold text-dark">Classic Facial</h3>
+                            <span class="text-accent font-medium">$75 / 60 min</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">A purifying treatment that includes cleansing, exfoliation,
+                            extraction, and hydration to improve skin texture and appearance.</p>
+                        <button @click="showDetails === 4 ? showDetails = null : showDetails = 4"
+                            class="text-accent font-medium hover:underline inline-flex items-center">
+                            <span x-text="showDetails === 4 ? 'Show Less' : 'View Details'"></span>
+                            <i class="fas"
+                                :class="showDetails === 4 ? 'fa-chevron-up ml-2' : 'fa-chevron-down ml-2'"></i>
+                        </button>
+
+                        <div x-show="showDetails === 4" x-transition class="mt-4 pt-4 border-t border-gray-100">
+                            <h4 class="font-medium text-dark mb-2">Benefits:</h4>
+                            <ul class="list-disc list-inside text-gray-600 mb-4 space-y-1">
+                                <li>Deep cleansing</li>
+                                <li>Removes dead skin cells</li>
+                                <li>Unclogs pores</li>
+                                <li>Hydrates and nourishes</li>
+                            </ul>
+                            <a href="contact.html"
+                                class="inline-block bg-accent hover:bg-opacity-90 text-white font-medium py-2 px-6 rounded-full transition duration-300 transform hover:scale-105 text-sm">Book
+                                Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-primary rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl service-card"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                            alt="Anti-Aging Facial" class="w-full h-64 object-cover service-image" loading="lazy">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-serif font-bold text-dark">Anti-Aging Facial</h3>
+                            <span class="text-accent font-medium">$95 / 75 min</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">A specialized treatment designed to reduce the appearance of fine
+                            lines and wrinkles, and improve skin elasticity and firmness.</p>
+                        <button @click="showDetails === 5 ? showDetails = null : showDetails = 5"
+                            class="text-accent font-medium hover:underline inline-flex items-center">
+                            <span x-text="showDetails === 5 ? 'Show Less' : 'View Details'"></span>
+                            <i class="fas"
+                                :class="showDetails === 5 ? 'fa-chevron-up ml-2' : 'fa-chevron-down ml-2'"></i>
+                        </button>
+
+                        <div x-show="showDetails === 5" x-transition class="mt-4 pt-4 border-t border-gray-100">
+                            <h4 class="font-medium text-dark mb-2">Benefits:</h4>
+                            <ul class="list-disc list-inside text-gray-600 mb-4 space-y-1">
+                                <li>Reduces fine lines and wrinkles</li>
+                                <li>Improves skin elasticity</li>
+                                <li>Stimulates collagen production</li>
+                                <li>Brightens complexion</li>
+                            </ul>
+                            <a href="contact.html"
+                                class="inline-block bg-accent hover:bg-opacity-90 text-white font-medium py-2 px-6 rounded-full transition duration-300 transform hover:scale-105 text-sm">Book
+                                Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-primary rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl service-card"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                            alt="Hydrating Facial" class="w-full h-64 object-cover service-image" loading="lazy">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-serif font-bold text-dark">Hydrating Facial</h3>
+                            <span class="text-accent font-medium">$85 / 60 min</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">A moisture-boosting treatment that replenishes and locks in
+                            hydration, perfect for dry or dehydrated skin.</p>
+                        <button @click="showDetails === 6 ? showDetails = null : showDetails = 6"
+                            class="text-accent font-medium hover:underline inline-flex items-center">
+                            <span x-text="showDetails === 6 ? 'Show Less' : 'View Details'"></span>
+                            <i class="fas"
+                                :class="showDetails === 6 ? 'fa-chevron-up ml-2' : 'fa-chevron-down ml-2'"></i>
+                        </button>
+
+                        <div x-show="showDetails === 6" x-transition class="mt-4 pt-4 border-t border-gray-100">
+                            <h4 class="font-medium text-dark mb-2">Benefits:</h4>
+                            <ul class="list-disc list-inside text-gray-600 mb-4 space-y-1">
+                                <li>Intensely hydrates skin</li>
+                                <li>Soothes dryness and irritation</li>
+                                <li>Improves skin barrier function</li>
+                                <li>Creates a dewy, radiant complexion</li>
+                            </ul>
+                            <a href="contact.html"
+                                class="inline-block bg-accent hover:bg-opacity-90 text-white font-medium py-2 px-6 rounded-full transition duration-300 transform hover:scale-105 text-sm">Book
+                                Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Column 1: Logo & About -->
+                <div>
+                    <a href="index.html"
+                        class="text-2xl font-serif font-bold text-white mb-4 inline-block">Serenity<span
+                            class="text-accent">Spa</span></a>
+                    <p class="text-gray-300 mb-4">Your destination for relaxation and rejuvenation. We offer premium spa
+                        services to help you look and feel your best.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-accent transition"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i
+                                class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-accent transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-accent transition">About Us</a></li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Services</a></li>
+                        <li><a href="faq.html" class="text-gray-300 hover:text-accent transition">FAQ</a></li>
+                        <li><a href="contact.html" class="text-gray-300 hover:text-accent transition">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Services -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Our Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Massage Therapy</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Facial Treatments</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Body Treatments</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Aromatherapy</a></li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Spa Packages</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact Info -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
+                            <span class="text-gray-300">123 Relaxation Blvd, Serenity City, SC 12345</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-accent"></i>
+                            <span class="text-gray-300">(555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-accent"></i>
+                            <span class="text-gray-300">info@serenityspa.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock mr-3 text-accent"></i>
+                            <span class="text-gray-300">Mon-Sat: 9:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 6:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="border-gray-700 my-8">
+
+            <div class="text-center text-gray-400">
+                <p>&copy; 2023 SerenitySpas. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Initialize Scripts -->
+    <script>
+        // Initialize AOS animations
+        AOS.init();
+    </script>
+</body>
+
+</html>

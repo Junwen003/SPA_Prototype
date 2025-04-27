@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA Business - Relaxation & Wellness</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFFAF3',
+                        secondary: '#FFFFFF',
+                        accent: '#D4A373',
+                        dark: '#5C5C5C'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- AOS.js for animations -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- Swiper.js for sliders -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+    <style>
+        body {
+            background-color: #FFFAF3;
+        }
+
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 90vh;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #D4A373;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .active::after {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50" x-data="{ mobileMenuOpen: false }">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-serif font-bold text-accent">Serenity<span
+                    class="text-dark">Spa</span></a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link active font-medium text-dark hover:text-accent transition">Home</a>
+                <a href="about.html" class="nav-link font-medium text-dark hover:text-accent transition">About Us</a>
+                <a href="menu.html" class="nav-link font-medium text-dark hover:text-accent transition">Services</a>
+                <a href="gallery.html" class="nav-link font-medium text-dark hover:text-accent transition">Gallery</a>
+                <a href="faq.html" class="nav-link font-medium text-dark hover:text-accent transition">FAQ</a>
+                <a href="contact.html" class="nav-link font-medium text-dark hover:text-accent transition">Contact</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-dark focus:outline-none">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-white">
+            <nav class="flex flex-col space-y-4 px-4 py-6">
+                <a href="index.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Home</a>
+                <a href="about.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">About
+                    Us</a>
+                <a href="menu.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Services</a>
+                <a href="gallery.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Gallery</a>
+                <a href="faq.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">FAQ</a>
+                <a href="contact.html" class="font-medium text-dark hover:text-accent transition pb-2">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section flex items-center justify-center text-center text-white">
+        <div class="container mx-auto px-4" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-6">Experience True Relaxation</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Indulge in our premium spa treatments designed to
+                rejuvenate your body and mind</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="menu.html"
+                    class="bg-accent hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">Our
+                    Services</a>
+                <a href="contact.html"
+                    class="bg-transparent hover:bg-white hover:text-accent text-white font-medium py-3 px-8 rounded-full border-2 border-white transition duration-300 transform hover:scale-105">Book
+                    Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4 text-dark">Our Premium Services</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Discover our range of treatments designed to provide
+                    the ultimate relaxation experience</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-primary rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                        alt="Massage Therapy" class="w-full h-64 object-cover" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="text-xl font-serif font-bold mb-3 text-dark">Massage Therapy</h3>
+                        <p class="text-gray-600 mb-4">Our expert therapists use a variety of techniques to release
+                            tension and promote relaxation.</p>
+                        <a href="menu.html" class="text-accent font-medium hover:underline inline-flex items-center">
+                            Learn More
+                            <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-primary rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                        alt="Facial Treatments" class="w-full h-64 object-cover" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="text-xl font-serif font-bold mb-3 text-dark">Facial Treatments</h3>
+                        <p class="text-gray-600 mb-4">Revitalize your skin with our customized facial treatments using
+                            premium products.</p>
+                        <a href="menu.html" class="text-accent font-medium hover:underline inline-flex items-center">
+                            Learn More
+                            <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-primary rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1748&q=80"
+                        alt="Body Treatments" class="w-full h-64 object-cover" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="text-xl font-serif font-bold mb-3 text-dark">Body Treatments</h3>
+                        <p class="text-gray-600 mb-4">Pamper yourself with our luxurious body scrubs, wraps, and other
+                            rejuvenating treatments.</p>
+                        <a href="menu.html" class="text-accent font-medium hover:underline inline-flex items-center">
+                            Learn More
+                            <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="menu.html"
+                    class="inline-block bg-accent hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">View
+                    All Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-primary">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4 text-dark">What Our Clients Say</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Hear from our satisfied customers about their
+                    experiences at SerenitySpas</p>
+            </div>
+
+            <!-- Testimonial Slider -->
+            <div class="swiper testimonialSwiper" data-aos="fade-up">
+                <div class="swiper-wrapper pb-8">
+                    <!-- Testimonial 1 -->
+                    <div class="swiper-slide">
+                        <div class="bg-white p-8 rounded-lg shadow-md">
+                            <div class="flex items-center mb-4">
+                                <div class="text-accent">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 italic mb-6">"The massage therapy at SerenitySpas was absolutely
+                                amazing. The therapist was skilled and attentive to my needs. I left feeling completely
+                                rejuvenated and will definitely be returning!"</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson"
+                                        class="w-full h-full object-cover" loading="lazy">
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-dark">Sarah Johnson</h4>
+                                    <p class="text-sm text-gray-500">Regular Client</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="swiper-slide">
+                        <div class="bg-white p-8 rounded-lg shadow-md">
+                            <div class="flex items-center mb-4">
+                                <div class="text-accent">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 italic mb-6">"I treated myself to a facial for my birthday and it
+                                was the best decision ever. My skin has never looked better! The staff was friendly and
+                                the atmosphere was so peaceful. Highly recommend!"</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael Chen"
+                                        class="w-full h-full object-cover" loading="lazy">
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-dark">Michael Chen</h4>
+                                    <p class="text-sm text-gray-500">New Client</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="swiper-slide">
+                        <div class="bg-white p-8 rounded-lg shadow-md">
+                            <div class="flex items-center mb-4">
+                                <div class="text-accent">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 italic mb-6">"My wife and I had a couples massage and it was the
+                                perfect way to celebrate our anniversary. The private room was beautiful and the
+                                experience was so relaxing. We'll definitely be back!"</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily Rodriguez"
+                                        class="w-full h-full object-cover" loading="lazy">
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-dark">Emily Rodriguez</h4>
+                                    <p class="text-sm text-gray-500">Regular Client</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Preview Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1488345979593-09db0f85545f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="About SerenitySpas" class="rounded-lg shadow-lg w-full h-auto" loading="lazy">
+                </div>
+
+                <div data-aos="fade-left">
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-dark">About SerenitySpas</h2>
+                    <p class="text-gray-600 mb-6">Founded in 2010, SerenitySpas has been dedicated to providing
+                        exceptional spa experiences that promote wellness and relaxation. Our team of certified
+                        therapists and estheticians are committed to helping you achieve balance in body and mind.</p>
+                    <p class="text-gray-600 mb-8">We use only premium, natural products and the latest techniques to
+                        ensure that every treatment delivers the results you desire. Our peaceful environment is
+                        designed to help you escape the stresses of everyday life.</p>
+                    <a href="about.html"
+                        class="inline-block bg-accent hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">Learn
+                        More About Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-20 bg-accent text-white">
+        <div class="container mx-auto px-4 text-center" data-aos="zoom-in">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6">Ready to Experience Relaxation?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Book your appointment today and take the first step towards a more
+                relaxed and rejuvenated you.</p>
+            <a href="contact.html"
+                class="inline-block bg-white text-accent hover:bg-opacity-90 font-medium py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">Book
+                Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Column 1: Logo & About -->
+                <div>
+                    <a href="index.html"
+                        class="text-2xl font-serif font-bold text-white mb-4 inline-block">Serenity<span
+                            class="text-accent">Spa</span></a>
+                    <p class="text-gray-300 mb-4">Your destination for relaxation and rejuvenation. We offer premium spa
+                        services to help you look and feel your best.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-accent transition"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i
+                                class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-accent transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-accent transition">About Us</a></li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Services</a></li>
+                        <li><a href="faq.html" class="text-gray-300 hover:text-accent transition">FAQ</a></li>
+                        <li><a href="contact.html" class="text-gray-300 hover:text-accent transition">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Services -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Our Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Massage Therapy</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Facial Treatments</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Body Treatments</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Aromatherapy</a></li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Spa Packages</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact Info -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
+                            <span class="text-gray-300">123 Relaxation Blvd, Serenity City, SC 12345</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-accent"></i>
+                            <span class="text-gray-300">(555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-accent"></i>
+                            <span class="text-gray-300">info@serenityspa.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock mr-3 text-accent"></i>
+                            <span class="text-gray-300">Mon-Sat: 9:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 6:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="border-gray-700 my-8">
+
+            <div class="text-center text-gray-400">
+                <p>&copy; 2023 SerenitySpas. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Scripts -->
+    <script>
+        // Initialize AOS animations
+        AOS.init();
+
+        // Initialize Swiper
+        const testimonialSwiper = new Swiper('.testimonialSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

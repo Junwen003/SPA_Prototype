@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - SerenitySpas</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFFAF3',
+                        secondary: '#FFFFFF',
+                        accent: '#D4A373',
+                        dark: '#5C5C5C'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- AOS.js for animations -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- jQuery (required for Lightbox) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Lightbox for image gallery -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
+    <style>
+        body {
+            background-color: #FFFAF3;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #D4A373;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .active::after {
+            width: 100%;
+        }
+
+        .page-banner {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            margin-bottom: 15px;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item img {
+            transition: transform 0.5s ease, filter 0.5s ease;
+            width: 100%;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(0.8);
+        }
+
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            padding: 20px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+        /* Masonry grid styles */
+        .masonry-grid {
+            width: 100%;
+        }
+
+        @media (min-width: 576px) {
+            .gallery-item {
+                width: calc(50% - 15px);
+            }
+        }
+
+        @media (min-width: 992px) {
+            .gallery-item {
+                width: calc(33.333% - 15px);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .gallery-item {
+                width: calc(25% - 15px);
+            }
+        }
+
+        /* Animation for gallery items */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Add this for smoother transitions when filtering */
+    </style>
+</head>
+
+<body>
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50" x-data="{ mobileMenuOpen: false }">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-serif font-bold text-accent">Serenity<span
+                    class="text-dark">Spa</span></a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link active font-medium text-dark hover:text-accent transition">Home</a>
+                <a href="about.html" class="nav-link font-medium text-dark hover:text-accent transition">About Us</a>
+                <a href="menu.html" class="nav-link font-medium text-dark hover:text-accent transition">Services</a>
+                <a href="gallery.html" class="nav-link font-medium text-dark hover:text-accent transition">Gallery</a>
+                <a href="faq.html" class="nav-link font-medium text-dark hover:text-accent transition">FAQ</a>
+                <a href="contact.html" class="nav-link font-medium text-dark hover:text-accent transition">Contact</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-dark focus:outline-none">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-white">
+            <nav class="flex flex-col space-y-4 px-4 py-6">
+                <a href="index.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Home</a>
+                <a href="about.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">About
+                    Us</a>
+                <a href="menu.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Services</a>
+                <a href="gallery.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Gallery</a>
+                <a href="faq.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">FAQ</a>
+                <a href="contact.html" class="font-medium text-dark hover:text-accent transition pb-2">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Page Banner -->
+    <section class="page-banner flex items-center justify-center text-center text-white">
+        <div class="container mx-auto px-4" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="text-4xl md:text-5xl font-serif font-bold mb-4">Our Gallery</h1>
+            <p class="text-xl max-w-3xl mx-auto">Experience the serene atmosphere and luxurious treatments of our spa
+                through our gallery</p>
+        </div>
+    </section>
+
+    <!-- Gallery Categories Navigation -->
+    <section class="py-10 bg-white sticky top-16 z-40 shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center gap-4" x-data="{ activeCategory: 'all' }">
+                <button @click="activeCategory = 'all'; filterGallery('all')"
+                    :class="activeCategory === 'all' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                    All Photos
+                </button>
+                <button @click="activeCategory = 'spa'; filterGallery('spa')"
+                    :class="activeCategory === 'spa' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                    Spa Ambiance
+                </button>
+                <button @click="activeCategory = 'massage'; filterGallery('massage')"
+                    :class="activeCategory === 'massage' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                    Massage Therapy
+                </button>
+                <button @click="activeCategory = 'facial'; filterGallery('facial')"
+                    :class="activeCategory === 'facial' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                    Facial Treatments
+                </button>
+                <button @click="activeCategory = 'body'; filterGallery('body')"
+                    :class="activeCategory === 'body' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                    Body Treatments
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-16 bg-primary">
+        <div class="container mx-auto px-4">
+            <div class="masonry-grid" id="gallery-container">
+                <!-- Spa Ambiance -->
+                <div class="gallery-item" data-category="spa">
+                    <a href="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                        data-lightbox="gallery" data-title="Spa Reception Area">
+                        <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                            alt="Spa Reception Area" class="w-full h-auto rounded-lg shadow-md" loading="lazy">
+                        <div class="overlay rounded-lg">
+                            <h3 class="text-xl font-serif font-bold">Spa Reception Area</h3>
+                            <p class="text-sm opacity-80">Our welcoming reception area designed for your comfort</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Massage Therapy -->
+                <div class="gallery-item" data-category="massage">
+                    <a href="https://images.unsplash.com/photo-1600334129128-685c5582fd35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                        data-lightbox="gallery" data-title="Swedish Massage Session">
+                        <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                            alt="Swedish Massage Session" class="w-full h-auto rounded-lg shadow-md" loading="lazy">
+                        <div class="overlay rounded-lg">
+                            <h3 class="text-xl font-serif font-bold">Swedish Massage</h3>
+                            <p class="text-sm opacity-80">Our signature relaxation massage technique</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Facial Treatment -->
+                <div class="gallery-item" data-category="facial">
+                    <a href="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                        data-lightbox="gallery" data-title="Luxury Facial Treatment">
+                        <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                            alt="Luxury Facial Treatment" class="w-full h-auto rounded-lg shadow-md" loading="lazy">
+                        <div class="overlay rounded-lg">
+                            <h3 class="text-xl font-serif font-bold">Luxury Facial</h3>
+                            <p class="text-sm opacity-80">Revitalize your skin with our premium facial treatments</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Body Treatment -->
+                <div class="gallery-item" data-category="body">
+                    <a href="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1748&q=80"
+                        data-lightbox="gallery" data-title="Body Scrub Treatment">
+                        <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1748&q=80"
+                            alt="Body Scrub Treatment" class="w-full h-auto rounded-lg shadow-md" loading="lazy">
+                        <div class="overlay rounded-lg">
+                            <h3 class="text-xl font-serif font-bold">Body Scrub</h3>
+                            <p class="text-sm opacity-80">Exfoliate and rejuvenate your skin with our body treatments
+                            </p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Spa Ambiance -->
+                <div class="gallery-item" data-category="spa">
+                    <a href="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                        data-lightbox="gallery" data-title="Relaxation Lounge">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                            alt="Relaxation Lounge" class="w-full h-auto rounded-lg shadow-md" loading="lazy">
+                        <div class="overlay rounded-lg">
+                            <h3 class="text-xl font-serif font-bold">Relaxation Lounge</h3>
+                            <p class="text-sm opacity-80">Unwind in our peaceful relaxation area before or after
+                                treatments</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Hot Stone Massage -->
+                <div class="gallery-item" data-category="massage">
+                    <a href="https://images.unsplash.com/photo-1519824145371-296894a0daa9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                        data-lightbox="gallery" data-title="Hot Stone Massage">
+                        <img src="https://images.unsplash.com/photo-1519824145371-296894a0daa9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                            alt="Hot Stone Massage" class="w-full h-auto rounded-lg shadow-md" loading="lazy">
+                        <div class="overlay rounded-lg">
+                            <h3 class="text-xl font-serif font-bold">Hot Stone Massage</h3>
+                            <p class="text-sm opacity-80">Experience deep relaxation with our hot stone therapy</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Anti-Aging Facial -->
+                <div class="gallery-item" data-category="facial">
+                    <a href="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                        data-lightbox="gallery" data-title="Anti-Aging Facial Treatment">
+                        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                            alt="Anti-Aging Facial Treatment" class="w-full h-auto rounded-lg shadow-md" loading="lazy">
+                        <div class="overlay rounded-lg">
+                            <h3 class="text-xl font-serif font-bold">Anti-Aging Facial</h3>
+                            <p class="text-sm opacity-80">Turn back time with our specialized anti-aging treatments</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Aromatherapy -->
+                <div class="gallery-item" data-category="body">
+                    <a href="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                        data-lightbox="gallery" data-title="Aromatherapy Session">
+                        <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                            alt="Aromatherapy Session" class="w-full h-auto rounded-lg shadow-md" loading="lazy">
+                        <div class="overlay rounded-lg">
+                            <h3 class="text-xl font-serif font-bold">Aromatherapy</h3>
+                            <p class="text-sm opacity-80">Enhance your wellness with our essential oil treatments</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Spa Facilities -->
+                <div class="gallery-item" data-category="spa">
+                    <a href="https://images.unsplash.com/photo-1700142360825-d21edc53c8db?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        data-lightbox="gallery" data-title="Luxury Treatment Room">
+                        <img src="https://images.unsplash.com/photo-1700142360825-d21edc53c8db?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            alt="Luxury Treatment Room" class="w-full h-auto rounded-lg shadow-md" loading="lazy">
+                        <div class="overlay rounded-lg">
+                            <h3 class="text-xl font-serif font-bold">Luxury Treatment Room</h3>
+                            <p class="text-sm opacity-80">Our elegant treatment rooms designed for your comfort</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Deep Tissue Massage -->
+                <div class="gallery-item" data-category="massage">
+                    <a href="https://images.unsplash.com/photo-1542848284-8afa78a08ccb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1686&q=80"
+                        data-lightbox="gallery" data-title="Deep Tissue Massage">
+                        <img src="https://images.unsplash.com/photo-1542848284-8afa78a08ccb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1686&q=80"
+                            alt="Deep Tissue Massage" class="w-full h-auto rounded-lg shadow-md" loading="lazy">
+                        <div class="overlay rounded-lg">
+                            <h3 class="text-xl font-serif font-bold">Deep Tissue Massage</h3>
+                            <p class="text-sm opacity-80">Target chronic tension with our therapeutic deep tissue
+                                massage</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Hydrating Facial -->
+                <div class="gallery-item" data-category="facial">
+                    <a href="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                        data-lightbox="gallery" data-title="Hydrating Facial Treatment">
+                        <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                            alt="Hydrating Facial Treatment" class="w-full h-auto rounded-lg shadow-md" loading="lazy">
+                        <div class="overlay rounded-lg">
+                            <h3 class="text-xl font-serif font-bold">Hydrating Facial</h3>
+                            <p class="text-sm opacity-80">Restore moisture and radiance to your skin</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <div data-aos="zoom-in">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-dark">Experience Our Treatments</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-8">Ready to indulge in our premium spa services?
+                    Book your appointment today and treat yourself to the relaxation you deserve.</p>
+                <a href="contact.html"
+                    class="bg-accent hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 inline-block">Book
+                    Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Column 1: Logo & About -->
+                <div>
+                    <a href="index.html"
+                        class="text-2xl font-serif font-bold text-white mb-4 inline-block">Serenity<span
+                            class="text-accent">Spa</span></a>
+                    <p class="text-gray-300 mb-4">Your destination for relaxation and rejuvenation. We offer premium spa
+                        services to help you look and feel your best.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-accent transition"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i
+                                class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-accent transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-accent transition">About Us</a></li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Services</a></li>
+                        <li><a href="gallery.html" class="text-gray-300 hover:text-accent transition">Gallery</a></li>
+                        <li><a href="faq.html" class="text-gray-300 hover:text-accent transition">FAQ</a></li>
+                        <li><a href="contact.html" class="text-gray-300 hover:text-accent transition">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Services -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Our Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Massage Therapy</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Facial Treatments</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Body Treatments</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Aromatherapy</a></li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Spa Packages</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact Info -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
+                            <span class="text-gray-300">123 Relaxation Blvd, Serenity City, SC 12345</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-accent"></i>
+                            <span class="text-gray-300">(555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-accent"></i>
+                            <span class="text-gray-300">info@serenityspa.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock mr-3 text-accent"></i>
+                            <span class="text-gray-300">Mon-Sat: 9:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 6:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="border-gray-700 my-8">
+
+            <div class="text-center text-gray-400">
+                <p>&copy; 2023 SerenitySpas. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ImagesLoaded library for better masonry layout -->
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <!-- Masonry.js -->
+    <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+
+    <!-- Initialize Scripts -->
+    <script>
+        // Initialize AOS animations after Masonry layout
+        document.addEventListener('DOMContentLoaded', function () {
+            const grid = document.querySelector('.masonry-grid');
+            const items = document.querySelectorAll('.gallery-item');
+
+            // Initialize Masonry
+            let msnry;
+
+            function initMasonry() {
+                msnry = new Masonry(grid, {
+                    itemSelector: '.gallery-item',
+                    columnWidth: '.gallery-item',
+                    percentPosition: true,
+                    transitionDuration: '0.4s',
+                    stagger: 30,
+                    // Use animation for revealing items
+                    visibleStyle: { transform: 'translateY(0)', opacity: 1 },
+                    hiddenStyle: { transform: 'translateY(100px)', opacity: 0 }
+                });
+            }
+
+            // Filter gallery items by category
+            window.filterGallery = function (category) {
+                items.forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+
+                // Re-layout Masonry after filtering
+                setTimeout(function () {
+                    msnry.layout();
+                }, 100);
+            };
+
+            // Initialize Masonry after all images are loaded
+            imagesLoaded(grid, function () {
+                initMasonry();
+                // Add fade-in class to all items for initial animation
+                items.forEach(item => {
+                    item.classList.add('fade-in');
+                });
+
+                // Initialize AOS after Masonry layout
+                AOS.init();
+            });
+
+            // Update layout on window resize
+            window.addEventListener('resize', function () {
+                msnry.layout();
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>

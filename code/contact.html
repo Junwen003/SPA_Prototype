@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - SerenitySpas</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFFAF3',
+                        secondary: '#FFFFFF',
+                        accent: '#D4A373',
+                        dark: '#5C5C5C'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- AOS.js for animations -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <style>
+        body {
+            background-color: #FFFAF3;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #D4A373;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .active::after {
+            width: 100%;
+        }
+
+        .page-banner {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1596178065887-1198b6148b2b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+        }
+
+        .form-input:focus {
+            border-color: #D4A373;
+            box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50" x-data="{ mobileMenuOpen: false }">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-serif font-bold text-accent">Serenity<span
+                    class="text-dark">Spa</span></a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link active font-medium text-dark hover:text-accent transition">Home</a>
+                <a href="about.html" class="nav-link font-medium text-dark hover:text-accent transition">About Us</a>
+                <a href="menu.html" class="nav-link font-medium text-dark hover:text-accent transition">Services</a>
+                <a href="gallery.html" class="nav-link font-medium text-dark hover:text-accent transition">Gallery</a>
+                <a href="faq.html" class="nav-link font-medium text-dark hover:text-accent transition">FAQ</a>
+                <a href="contact.html" class="nav-link font-medium text-dark hover:text-accent transition">Contact</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-dark focus:outline-none">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-white">
+            <nav class="flex flex-col space-y-4 px-4 py-6">
+                <a href="index.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Home</a>
+                <a href="about.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">About
+                    Us</a>
+                <a href="menu.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Services</a>
+                <a href="gallery.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">Gallery</a>
+                <a href="faq.html"
+                    class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">FAQ</a>
+                <a href="contact.html" class="font-medium text-dark hover:text-accent transition pb-2">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner flex items-center justify-center text-center text-white">
+        <div class="container mx-auto px-4" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="text-4xl md:text-5xl font-serif font-bold mb-4">Contact Us</h1>
+            <p class="text-xl max-w-3xl mx-auto">Get in touch with our team to book your appointment or ask any
+                questions</p>
+        </div>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Contact Info Card 1 -->
+                <div class="bg-primary p-8 rounded-lg shadow-md text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-accent text-4xl mb-4">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold mb-3 text-dark">Our Location</h3>
+                    <p class="text-gray-600">123 Relaxation Blvd<br>Serenity City, SC 12345<br>United States</p>
+                </div>
+
+                <!-- Contact Info Card 2 -->
+                <div class="bg-primary p-8 rounded-lg shadow-md text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-accent text-4xl mb-4">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold mb-3 text-dark">Phone Numbers</h3>
+                    <p class="text-gray-600">Main: (555) 123-4567<br>Bookings: (555) 123-4568<br>Support: (555) 123-4569
+                    </p>
+                </div>
+
+                <!-- Contact Info Card 3 -->
+                <div class="bg-primary p-8 rounded-lg shadow-md text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-accent text-4xl mb-4">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold mb-3 text-dark">Email Addresses</h3>
+                    <p class="text-gray-600">Info: info@serenityspa.com<br>Bookings:
+                        bookings@serenityspa.com<br>Support: support@serenityspa.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form & Map Section -->
+    <section class="py-16 bg-primary">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl font-serif font-bold mb-6 text-dark">Send Us a Message</h2>
+                    <p class="text-gray-600 mb-8">Have a question or ready to book your appointment? Fill out the form
+                        below and our team will get back to you as soon as possible.</p>
+
+                    <form action="#" method="POST" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="first_name" class="block text-dark font-medium mb-2">First Name</label>
+                                <input type="text" id="first_name" name="first_name"
+                                    class="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 focus:outline-none form-input"
+                                    required>
+                            </div>
+                            <div>
+                                <label for="last_name" class="block text-dark font-medium mb-2">Last Name</label>
+                                <input type="text" id="last_name" name="last_name"
+                                    class="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 focus:outline-none form-input"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="email" class="block text-dark font-medium mb-2">Email Address</label>
+                                <input type="email" id="email" name="email"
+                                    class="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 focus:outline-none form-input"
+                                    required>
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-dark font-medium mb-2">Phone Number</label>
+                                <input type="tel" id="phone" name="phone"
+                                    class="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 focus:outline-none form-input"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="service" class="block text-dark font-medium mb-2">Service of Interest</label>
+                            <select id="service" name="service"
+                                class="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 focus:outline-none form-input">
+                                <option value="">Select a Service</option>
+                                <option value="massage">Massage Therapy</option>
+                                <option value="facial">Facial Treatments</option>
+                                <option value="body">Body Treatments</option>
+                                <option value="package">Spa Packages</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-dark font-medium mb-2">Your Message</label>
+                            <textarea id="message" name="message" rows="5"
+                                class="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 focus:outline-none form-input"
+                                required></textarea>
+                        </div>
+
+                        <div>
+                            <button type="submit"
+                                class="bg-accent hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">Send
+                                Message</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Map & Hours -->
+                <div data-aos="fade-left">
+                    <h2 class="text-3xl font-serif font-bold mb-6 text-dark">Find Us</h2>
+                    <div class="bg-white p-2 rounded-lg shadow-md mb-8">
+                        <!-- Replace with actual Google Maps embed code -->
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215266754809!2d-73.98784492426285!3d40.75798657138946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1690214105025!5m2!1sen!2sus"
+                            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+
+                    <h3 class="text-xl font-serif font-bold mb-4 text-dark">Business Hours</h3>
+                    <ul class="space-y-3">
+                        <li class="flex justify-between items-center pb-2 border-b border-gray-200">
+                            <span class="text-dark font-medium">Monday - Friday</span>
+                            <span class="text-gray-600">9:00 AM - 8:00 PM</span>
+                        </li>
+                        <li class="flex justify-between items-center pb-2 border-b border-gray-200">
+                            <span class="text-dark font-medium">Saturday</span>
+                            <span class="text-gray-600">9:00 AM - 7:00 PM</span>
+                        </li>
+                        <li class="flex justify-between items-center pb-2 border-b border-gray-200">
+                            <span class="text-dark font-medium">Sunday</span>
+                            <span class="text-gray-600">10:00 AM - 6:00 PM</span>
+                        </li>
+                    </ul>
+
+                    <div class="mt-8">
+                        <h3 class="text-xl font-serif font-bold mb-4 text-dark">Connect With Us</h3>
+                        <div class="flex space-x-4">
+                            <a href="#"
+                                class="bg-accent text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-opacity-90 transition">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#"
+                                class="bg-accent text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-opacity-90 transition">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#"
+                                class="bg-accent text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-opacity-90 transition">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#"
+                                class="bg-accent text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-opacity-90 transition">
+                                <i class="fab fa-pinterest-p"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Book Appointment CTA Section -->
+    <section class="py-16 bg-accent text-white">
+        <div class="container mx-auto px-4 text-center" data-aos="zoom-in">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6">Ready to Experience Relaxation?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Book your appointment today and take the first step towards a more
+                relaxed and rejuvenated you.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="tel:5551234567"
+                    class="bg-white text-accent hover:bg-opacity-90 font-medium py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">
+                    <i class="fas fa-phone-alt mr-2"></i> Call Now
+                </a>
+                <a href="#"
+                    class="bg-transparent hover:bg-white hover:text-accent text-white font-medium py-3 px-8 rounded-full border-2 border-white transition duration-300 transform hover:scale-105">
+                    <i class="far fa-calendar-alt mr-2"></i> Online Booking
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Preview Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4 text-dark">Frequently Asked Questions</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Find quick answers to common questions about our
+                    services and policies</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <!-- FAQ Item 1 -->
+                <div x-data="{ open: false }" class="mb-6 bg-primary rounded-lg shadow-md overflow-hidden">
+                    <button @click="open = !open"
+                        class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                        <span class="text-dark">How do I book an appointment?</span>
+                        <i class="fas"
+                            :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                    </button>
+                    <div x-show="open" x-transition class="px-6 pb-4">
+                        <p class="text-gray-600">You can book an appointment through our website, by calling us at (555)
+                            123-4567, or in person at our spa. Online booking is available 24/7 and allows you to see
+                            real-time availability.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div x-data="{ open: false }" class="mb-6 bg-primary rounded-lg shadow-md overflow-hidden">
+                    <button @click="open = !open"
+                        class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                        <span class="text-dark">What is your cancellation policy?</span>
+                        <i class="fas"
+                            :class="open ? 'fa-chevron-up text-accent' : 'fa-chevron-down text-gray-400'"></i>
+                    </button>
+                    <div x-show="open" x-transition class="px-6 pb-4">
+                        <p class="text-gray-600">We require 24 hours' notice for cancellations or rescheduling.
+                            Cancellations made with less than 24 hours' notice may be subject to a 50% cancellation fee.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-8">
+                    <a href="faq.html" class="inline-block text-accent font-medium hover:underline">View All FAQs <i
+                            class="fas fa-arrow-right ml-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Column 1: Logo & About -->
+                <div>
+                    <a href="index.html"
+                        class="text-2xl font-serif font-bold text-white mb-4 inline-block">Serenity<span
+                            class="text-accent">Spa</span></a>
+                    <p class="text-gray-300 mb-4">Your destination for relaxation and rejuvenation. We offer premium spa
+                        services to help you look and feel your best.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-accent transition"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-accent transition"><i
+                                class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-accent transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-accent transition">About Us</a></li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Services</a></li>
+                        <li><a href="faq.html" class="text-gray-300 hover:text-accent transition">FAQ</a></li>
+                        <li><a href="contact.html" class="text-gray-300 hover:text-accent transition">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Services -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Our Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Massage Therapy</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Facial Treatments</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Body Treatments</a>
+                        </li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Aromatherapy</a></li>
+                        <li><a href="menu.html" class="text-gray-300 hover:text-accent transition">Spa Packages</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact Info -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
+                            <span class="text-gray-300">123 Relaxation Blvd, Serenity City, SC 12345</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-accent"></i>
+                            <span class="text-gray-300">(555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-accent"></i>
+                            <span class="text-gray-300">info@serenityspa.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock mr-3 text-accent"></i>
+                            <span class="text-gray-300">Mon-Sat: 9:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 6:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="border-gray-700 my-8">
+
+            <div class="text-center text-gray-400">
+                <p>&copy; 2023 SerenitySpas. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Scripts -->
+    <script>
+        // Initialize AOS animations
+        AOS.init();
+    </script>
+</body>
+
+</html>
