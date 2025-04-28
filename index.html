@@ -90,10 +90,10 @@
     <!-- Header/Navigation -->
     <header class="bg-white shadow-sm sticky top-0 z-50" x-data="{ mobileMenuOpen: false }">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo in the middle -->
             <a href="index.html" class="text-2xl font-serif font-bold text-accent">Serenity<span
                     class="text-dark">Spa</span></a>
-
-            <!-- Desktop Navigation -->
+            <!-- Desktop Navigation - Now on the left side -->
             <nav class="hidden md:flex space-x-8">
                 <a href="index.html" class="nav-link active font-medium text-dark hover:text-accent transition">Home</a>
                 <a href="about.html" class="nav-link font-medium text-dark hover:text-accent transition">About Us</a>
@@ -102,6 +102,16 @@
                 <a href="faq.html" class="nav-link font-medium text-dark hover:text-accent transition">FAQ</a>
                 <a href="contact.html" class="nav-link font-medium text-dark hover:text-accent transition">Contact</a>
             </nav>
+
+
+
+            <!-- Book Now Button on the right -->
+            <div class="hidden md:block">
+                <a href="contact.html"
+                    class="bg-accent hover:bg-opacity-90 text-white font-medium py-2 px-6 rounded-full transition duration-300 transform hover:scale-105 shadow-md">
+                    Book Now
+                </a>
+            </div>
 
             <!-- Mobile Menu Button -->
             <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-dark focus:outline-none">
@@ -124,6 +134,9 @@
                 <a href="faq.html"
                     class="font-medium text-dark hover:text-accent transition border-b border-gray-100 pb-2">FAQ</a>
                 <a href="contact.html" class="font-medium text-dark hover:text-accent transition pb-2">Contact</a>
+                <!-- Add Book Now button for mobile -->
+                <a href="contact.html" class="bg-accent text-white font-medium py-2 px-4 rounded-full text-center">Book
+                    Now</a>
             </nav>
         </div>
     </header>

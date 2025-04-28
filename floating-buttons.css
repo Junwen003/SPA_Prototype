@@ -1,4 +1,3 @@
-/* Floating Social Media Buttons Styles */
 .floating-main-container {
     position: fixed;
     right: 20px;
@@ -6,14 +5,14 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 10px;
+    gap: 15px;
     z-index: 999;
 }
 
 .floating-buttons {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     transition: all 0.3s ease;
 }
 
@@ -24,20 +23,19 @@
 }
 
 .floating-button {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.floating-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    justify-content: flex-start;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition-duration: 0.3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
 }
 
 .floating-button.whatsapp {
@@ -52,12 +50,59 @@
     background-color: #3b5998;
 }
 
+.floating-button .icon {
+    width: 100%;
+    transition-duration: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.floating-button .icon i {
+    color: white;
+    font-size: 1.5em;
+}
+
+.floating-button .text {
+    position: absolute;
+    right: 0%;
+    width: 0%;
+    opacity: 0;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition-duration: 0.3s;
+    white-space: nowrap;
+}
+
+.floating-button:hover {
+    width: 160px;
+    border-radius: 25px;
+    transition-duration: 0.3s;
+}
+
+.floating-button:hover .icon {
+    width: 30%;
+    transition-duration: 0.3s;
+    padding-left: 10px;
+}
+
+.floating-button:hover .text {
+    opacity: 1;
+    width: 70%;
+    transition-duration: 0.3s;
+    padding-right: 10px;
+}
+
+.floating-button:active {
+    transform: translate(2px, 2px);
+}
+
 .toggle-button {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background-color: #D4A373;
-    /* Using the site's accent color */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -65,7 +110,6 @@
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
-    margin-top: 10px;
 }
 
 .toggle-button:hover {
@@ -77,14 +121,11 @@
     position: fixed;
     bottom: 20px;
     left: 20px;
-    /* Adjust the right position to align with other buttons */
     background-color: #D4A373;
-    /* Using the site's accent color */
     color: white;
     border: none;
     border-radius: 50%;
     width: 50px;
-    /* Match the size of other buttons */
     height: 50px;
     display: flex;
     align-items: center;
@@ -124,17 +165,19 @@
         height: 40px;
     }
 
+    .floating-button:hover {
+        width: 130px;
+    }
+
     .toggle-button {
-        width: 35px;
-        height: 35px;
-        margin-top: 5px;
+        width: 40px;
+        height: 40px;
     }
 
     .scroll-top-button {
-        width: 35px;
-        height: 35px;
-        right: 10px;
-        bottom: 70px;
-        /* Position above the floating buttons */
+        width: 40px;
+        height: 40px;
+        left: 10px;
+        bottom: 10px;
     }
 }

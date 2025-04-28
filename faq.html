@@ -88,14 +88,20 @@
 
             <!-- Desktop Navigation -->
             <nav class="hidden md:flex space-x-8">
-                <a href="index.html" class="nav-link active font-medium text-dark hover:text-accent transition">Home</a>
+                <a href="index.html" class="nav-link font-medium text-dark hover:text-accent transition">Home</a>
                 <a href="about.html" class="nav-link font-medium text-dark hover:text-accent transition">About Us</a>
                 <a href="menu.html" class="nav-link font-medium text-dark hover:text-accent transition">Services</a>
                 <a href="gallery.html" class="nav-link font-medium text-dark hover:text-accent transition">Gallery</a>
-                <a href="faq.html" class="nav-link font-medium text-dark hover:text-accent transition">FAQ</a>
+                <a href="faq.html" class="nav-link active font-medium text-dark hover:text-accent transition">FAQ</a>
                 <a href="contact.html" class="nav-link font-medium text-dark hover:text-accent transition">Contact</a>
             </nav>
-
+            <!-- Book Now Button on the right -->
+            <div class="hidden md:block">
+                <a href="contact.html"
+                    class="bg-accent hover:bg-opacity-90 text-white font-medium py-2 px-6 rounded-full transition duration-300 transform hover:scale-105 shadow-md">
+                    Book Now
+                </a>
+            </div>
             <!-- Mobile Menu Button -->
             <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-dark focus:outline-none">
                 <i class="fa-solid fa-bars text-xl"></i>
