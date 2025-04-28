@@ -139,34 +139,37 @@
     </section>
 
     <!-- Service Categories Navigation -->
-    <section class="py-10 bg-white sticky top-20 z-40 shadow-sm">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-wrap justify-center gap-4" x-data="{ activeCategory: 'all' }">
-                <button @click="activeCategory = 'all'"
-                    :class="activeCategory === 'all' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
-                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
-                    All Services
-                </button>
-                <button @click="activeCategory = 'massage'"
-                    :class="activeCategory === 'massage' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
-                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
-                    Massage Therapy
-                </button>
-                <button @click="activeCategory = 'facial'"
-                    :class="activeCategory === 'facial' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
-                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
-                    Facial Treatments
-                </button>
-                <button @click="activeCategory = 'body'"
-                    :class="activeCategory === 'body' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
-                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
-                    Body Treatments
-                </button>
-                <button @click="activeCategory = 'packages'"
-                    :class="activeCategory === 'packages' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
-                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
-                    Spa Packages
-                </button>
+    <section class="py-6 sm:py-10 bg-white sticky top-16 z-40 shadow-sm">
+        <div class=" container mx-auto px-4">
+            <div class="overflow-x-auto pb-2 -mx-4 px-4" style="scrollbar-width: none;">
+                <div class="flex flex-nowrap md:flex-wrap md:justify-center gap-2 md:gap-4 min-w-max"
+                    x-data="{ activeCategory: 'all' }">
+                    <button @click="activeCategory = 'all'"
+                        :class="activeCategory === 'all' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                        class="py-1 px-3 md:py-2 md:px-6 rounded-full transition duration-300 text-sm md:text-base md:font-medium whitespace-nowrap">
+                        All Services
+                    </button>
+                    <button @click="activeCategory = 'massage'"
+                        :class="activeCategory === 'massage' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                        class="py-1 px-3 md:py-2 md:px-6 rounded-full transition duration-300 text-sm md:text-base md:font-medium whitespace-nowrap">
+                        Massage Therapy
+                    </button>
+                    <button @click="activeCategory = 'facial'"
+                        :class="activeCategory === 'facial' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                        class="py-1 px-3 md:py-2 md:px-6 rounded-full transition duration-300 text-sm md:text-base md:font-medium whitespace-nowrap">
+                        Facial Treatments
+                    </button>
+                    <button @click="activeCategory = 'body'"
+                        :class="activeCategory === 'body' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                        class="py-1 px-3 md:py-2 md:px-6 rounded-full transition duration-300 text-sm md:text-base md:font-medium whitespace-nowrap">
+                        Body Treatments
+                    </button>
+                    <button @click="activeCategory = 'packages'"
+                        :class="activeCategory === 'packages' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                        class="py-1 px-3 md:py-2 md:px-6 rounded-full transition duration-300 text-sm md:text-base md:font-medium whitespace-nowrap">
+                        Spa Packages
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -491,11 +494,17 @@
             </div>
         </div>
     </footer>
+
     <!-- Initialize Scripts -->
     <script>
         // Initialize AOS animations
         AOS.init();
     </script>
+
+    <!-- Floating Social Media Buttons Script -->
+    <script src="floating-buttons.js"></script>
+    <!-- Floating Social Media Buttons -->
+    <link rel="stylesheet" href="floating-buttons.css" />
 </body>
 
 </html>

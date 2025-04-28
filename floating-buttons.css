@@ -1,0 +1,140 @@
+/* Floating Social Media Buttons Styles */
+.floating-main-container {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    z-index: 999;
+}
+
+.floating-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.floating-buttons.hidden {
+    transform: translateX(100px);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.floating-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.floating-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.floating-button.whatsapp {
+    background-color: #25D366;
+}
+
+.floating-button.telegram {
+    background-color: #0088cc;
+}
+
+.floating-button.facebook {
+    background-color: #3b5998;
+}
+
+.toggle-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #D4A373;
+    /* Using the site's accent color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    margin-top: 10px;
+}
+
+.toggle-button:hover {
+    transform: scale(1.1);
+}
+
+/* Scroll to top button styles */
+.scroll-top-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    /* Adjust the right position to align with other buttons */
+    background-color: #D4A373;
+    /* Using the site's accent color */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    /* Match the size of other buttons */
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s ease;
+    z-index: 998;
+    visibility: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-top-button.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-top-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+    .floating-main-container {
+        right: 10px;
+        bottom: 10px;
+        gap: 8px;
+    }
+
+    .floating-buttons {
+        gap: 8px;
+    }
+
+    .floating-button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .toggle-button {
+        width: 35px;
+        height: 35px;
+        margin-top: 5px;
+    }
+
+    .scroll-top-button {
+        width: 35px;
+        height: 35px;
+        right: 10px;
+        bottom: 70px;
+        /* Position above the floating buttons */
+    }
+}

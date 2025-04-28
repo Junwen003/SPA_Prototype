@@ -84,6 +84,13 @@
             height: 40vh;
         }
 
+        .container {
+            padding-left: 40px;
+            /* Increase padding as needed */
+            padding-right: 40px;
+            /* Increase padding as needed */
+        }
+
         .gallery-item {
             overflow: hidden;
             position: relative;
@@ -93,6 +100,8 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-left: 10px;
+
         }
 
         .gallery-item:hover {
@@ -150,6 +159,20 @@
             .gallery-item {
                 width: calc(25% - 15px);
             }
+        }
+
+        /* Add styles for the scrollable gallery filter container */
+        .overflow-x-auto::-webkit-scrollbar {
+            display: none;
+        }
+
+        .overflow-x-auto {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+            -webkit-overflow-scrolling: touch;
+            /* Smooth scrolling on iOS */
         }
 
         /* Animation for gallery items */
@@ -226,34 +249,37 @@
     </section>
 
     <!-- Gallery Categories Navigation -->
-    <section class="py-10 bg-white sticky top-16 z-40 shadow-sm">
+    <section class="py-6 sm:py-10 bg-white sticky top-16 z-40 shadow-sm">
         <div class="container mx-auto px-4">
-            <div class="flex flex-wrap justify-center gap-4" x-data="{ activeCategory: 'all' }">
-                <button @click="activeCategory = 'all'; filterGallery('all')"
-                    :class="activeCategory === 'all' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
-                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
-                    All Photos
-                </button>
-                <button @click="activeCategory = 'spa'; filterGallery('spa')"
-                    :class="activeCategory === 'spa' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
-                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
-                    Spa Ambiance
-                </button>
-                <button @click="activeCategory = 'massage'; filterGallery('massage')"
-                    :class="activeCategory === 'massage' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
-                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
-                    Massage Therapy
-                </button>
-                <button @click="activeCategory = 'facial'; filterGallery('facial')"
-                    :class="activeCategory === 'facial' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
-                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
-                    Facial Treatments
-                </button>
-                <button @click="activeCategory = 'body'; filterGallery('body')"
-                    :class="activeCategory === 'body' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
-                    class="py-2 px-6 rounded-full transition duration-300 font-medium">
-                    Body Treatments
-                </button>
+            <div class="overflow-x-auto pb-2 -mx-4 px-4" style="scrollbar-width: none;">
+                <div class="flex flex-nowrap md:flex-wrap md:justify-center gap-2 md:gap-4 min-w-max"
+                    x-data="{ activeCategory: 'all' }">
+                    <button @click="activeCategory = 'all'; filterGallery('all')"
+                        :class="activeCategory === 'all' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                        class="py-1 px-3 md:py-2 md:px-6 rounded-full transition duration-300 text-sm md:text-base md:font-medium whitespace-nowrap">
+                        All Photos
+                    </button>
+                    <button @click="activeCategory = 'spa'; filterGallery('spa')"
+                        :class="activeCategory === 'spa' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                        class="py-1 px-3 md:py-2 md:px-6 rounded-full transition duration-300 text-sm md:text-base md:font-medium whitespace-nowrap">
+                        Spa Ambiance
+                    </button>
+                    <button @click="activeCategory = 'massage'; filterGallery('massage')"
+                        :class="activeCategory === 'massage' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                        class="py-1 px-3 md:py-2 md:px-6 rounded-full transition duration-300 text-sm md:text-base md:font-medium whitespace-nowrap">
+                        Massage Therapy
+                    </button>
+                    <button @click="activeCategory = 'facial'; filterGallery('facial')"
+                        :class="activeCategory === 'facial' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                        class="py-1 px-3 md:py-2 md:px-6 rounded-full transition duration-300 text-sm md:text-base md:font-medium whitespace-nowrap">
+                        Facial Treatments
+                    </button>
+                    <button @click="activeCategory = 'body'; filterGallery('body')"
+                        :class="activeCategory === 'body' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
+                        class="py-1 px-3 md:py-2 md:px-6 rounded-full transition duration-300 text-sm md:text-base md:font-medium whitespace-nowrap">
+                        Body Treatments
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -414,7 +440,7 @@
     <!-- Call to Action Section -->
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4 text-center">
-            <div data-aos="zoom-in">
+            <div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-dark">Experience Our Treatments</h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-8">Ready to indulge in our premium spa services?
                     Book your appointment today and treat yourself to the relaxation you deserve.</p>
@@ -536,7 +562,10 @@
 
             // Filter gallery items by category
             window.filterGallery = function (category) {
-                items.forEach(item => {
+                // Only target items within the gallery container
+                const galleryItems = document.querySelectorAll('#gallery-container .gallery-item');
+
+                galleryItems.forEach(item => {
                     if (category === 'all' || item.dataset.category === category) {
                         item.classList.remove('hidden');
                     } else {
@@ -570,6 +599,10 @@
 
 
     </script>
+    <!-- Floating Social Media Buttons Script -->
+    <script src="floating-buttons.js"></script>
+    <!-- Floating Social Media Buttons -->
+    <link rel="stylesheet" href="floating-buttons.css" />
 </body>
 
 </html>

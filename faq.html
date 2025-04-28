@@ -143,22 +143,22 @@
                 <div class="flex flex-wrap justify-center gap-4">
                     <button @click="scrollToSection('general')"
                         :class="activeSection === 'general' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
-                        class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                        class="py-1 px-3 md:py-2 md:px-6 rounded-full transition duration-300 text-sm md:text-base md:font-medium whitespace-nowrap">
                         General
                     </button>
                     <button @click="scrollToSection('services')"
                         :class="activeSection === 'services' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
-                        class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                        class="py-1 px-3 md:py-2 md:px-6 rounded-full transition duration-300 text-sm md:text-base md:font-medium whitespace-nowrap">
                         Services
                     </button>
                     <button @click="scrollToSection('booking')"
                         :class="activeSection === 'booking' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
-                        class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                        class="py-1 px-3 md:py-2 md:px-6 rounded-full transition duration-300 text-sm md:text-base md:font-medium whitespace-nowrap">
                         Booking
                     </button>
                     <button @click="scrollToSection('policies')"
                         :class="activeSection === 'policies' ? 'bg-accent text-white' : 'bg-gray-100 text-dark hover:bg-gray-200'"
-                        class="py-2 px-6 rounded-full transition duration-300 font-medium">
+                        class="py-1 px-3 md:py-2 md:px-6 rounded-full transition duration-300 text-sm md:text-base md:font-medium whitespace-nowrap">
                         Policies
                     </button>
                 </div>
@@ -594,12 +594,17 @@
             </div>
         </div>
     </footer>
+
     <!-- Initialize Scripts -->
     <script>
         // Initialize AOS animations
         AOS.init();
-
     </script>
+
+    <!-- Floating Social Media Buttons Script -->
+    <script src="floating-buttons.js"></script>
+    <!-- Floating Social Media Buttons -->
+    <link rel="stylesheet" href="floating-buttons.css" />
 </body>
 
 </html>
