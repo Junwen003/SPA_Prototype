@@ -41,6 +41,8 @@
     <!-- AOS.js for animations -->
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <!--Animation-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 
     <!-- Floating Social Media Buttons -->
     <link rel="stylesheet" href="floating-buttons.css" />
@@ -318,25 +320,25 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
                 <!-- Achievement 1 -->
                 <div class="bg-white p-8 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-accent text-4xl font-bold mb-2">10+</div>
+                    <div class="text-accent text-4xl font-bold mb-2" id="years">10+</div>
                     <p class="text-dark font-medium">Years of Experience</p>
                 </div>
 
                 <!-- Achievement 2 -->
                 <div class="bg-white p-8 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-accent text-4xl font-bold mb-2">15,000+</div>
+                    <div class="text-accent text-4xl font-bold mb-2" id="clients">15,000+</div>
                     <p class="text-dark font-medium">Happy Clients</p>
                 </div>
 
                 <!-- Achievement 3 -->
                 <div class="bg-white p-8 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-accent text-4xl font-bold mb-2">20+</div>
+                    <div class="text-accent text-4xl font-bold mb-2" id="expert">20+</div>
                     <p class="text-dark font-medium">Expert Therapists</p>
                 </div>
 
                 <!-- Achievement 4 -->
                 <div class="bg-white p-8 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="400">
-                    <div class="text-accent text-4xl font-bold mb-2">5</div>
+                    <div class="text-accent text-4xl font-bold mb-2" id="awards">5</div>
                     <p class="text-dark font-medium">Industry Awards</p>
                 </div>
             </div>
@@ -444,6 +446,29 @@
     <script>
         // Initialize AOS animations
         AOS.init();
+
+        //animation
+        function animateNumber(id, endValue, suffix = "", duration = 4000) {
+            anime({
+                targets: { value: 0 },
+                value: endValue,
+                round: 1,
+                easing: "easeOutExpo",
+                duration: duration,
+                update: function (anim) {
+                    document.querySelector(id).innerHTML = anim.animations[0].currentValue.toLocaleString() + suffix;
+                }
+            });
+        }
+
+        // Trigger after page load
+        document.addEventListener("DOMContentLoaded", function () {
+            animateNumber("#years", 10, "+");
+            animateNumber("#clients", 15000, "+");
+            animateNumber("#expert", 20, "+");
+            animateNumber("#awards", 5);
+        });
+
     </script>
 
     <!-- Floating Social Media Buttons Script -->
